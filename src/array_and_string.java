@@ -163,6 +163,64 @@ public class array_and_string {
         }
         return false;
     }
+    // Q5. insert, delete, replace 한 번의 operation만으로 치환 가능한 관계인지.
+    // TODO: 로직을 종이에 정성껏 새웠고 자신이 있었고! 그대로 코딩했는데 예상한 결과가 안나오면 로직을 다시볼 게 아니라 디버깅을 해라
+    // TODO: 막다른 골목에 다다르면 좌절하거나 새로 시작하지 말고 예제로 돌아가라. 그리고 하던 것 마저해라.
+    // TODO: 문자열이 같은 지 알아볼 때 정렬은 하지마라.
+    public static boolean q05(String s1, String s2) {
+        if (s1.length() < s2.length()) {
+            String tmp = s1;
+            s1 = s2;
+            s2 = tmp;
+        } else if (s1.length() == s2.length()) {
+            //위치별로 비교해서 다른것이 1개면 true
+            int diff = 0;
+            for (int i =0; i < s1.length(); i++) {
+                if (s1.charAt(i) != s2.charAt(i)) {
+                    diff++;
+                }
+            }
+            if (diff == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // s1 > s2
+        int unseen = -1;
+        if (s1.length() - s2.length() == 1) {
+            // unseen character의 index를 알아낸다.
+            char[] newStr = new char[s2.length()];
+            for(int i = 0; i < s1.length(); i++) {
+               int x = -1;
+               for (int j =0; j < s2.length(); j++) {
+                   if (s1.charAt(i)==s2.charAt(j)) {
+                       x=j;
+                   }
+               }
+               if (x==-1) {
+                    unseen = i;
+                    break;
+               }
+            }
+            if (unseen == -1) {
+                return false;
+            } else {
+                // unseen character를 빼고 새로 구성한 newStr가 s2와 같은지 알아본다.
+                for (int i = 0; i < unseen; i++) {
+                    newStr[i] = s1.charAt(i);
+                }
+                for (int i = 0; i < s1.length()-unseen-1; i++) {
+                    newStr[unseen+i] = s1.charAt(unseen+1+i);
+                }
+                if (new String(newStr).compareTo(s2) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
 
@@ -184,6 +242,16 @@ public class array_and_string {
         String str04_02 = "hicocih";
         String str04_03 = "hiocih";
         System.out.println("Q4: " + q04(str04_01) + ", " + q04(str04_02) + ", " + q04(str04_03));
+
+        // Q5
+        String str0501 = "card";
+        String str0502 = "clard";
+        String str0503 = "ard";
+        String str0504 = "cord";
+        String str0505 = "code";
+        System.out.println("Q5: " + q05(str0501, str0502) + ", "
+                + q05(str0501, str0503) + ", " + q05(str0501, str0504)
+                + ", " + q05(str0501, str0505));
 
 
     }
