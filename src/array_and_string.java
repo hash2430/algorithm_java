@@ -255,7 +255,87 @@ public class array_and_string {
             newChars[i] = newChar.get(i).charValue();
         return new String(newChars);
     }
+    //Q6을 string concat operator써서 구현한 버전. 훨씬 간단하다.
+    // String append시에 +를 쓰지 말자는 강박을 극복하면 훨신 쉽게 짤 수 있다.
+    public static String q06_ver2(String str) {
+        char[] chars = str.toCharArray();
+        char c;
+        int cnt = 1;
+        String newStr = "";
+        c = chars[0];
+        for (int i =1; i < str.length(); i++) {
+            if (chars[i] == c) {
+                cnt++;
+            } else {
+                newStr += c;
+                newStr += (char)(cnt+48);
+                c = chars[i];
+                cnt = 1;
+            }
+        }
+        newStr += c;
+        newStr += (char)(cnt+48);
+        if (newStr.length() > str.length()) {
+            return str;
+        }
+        return newStr;
+    }
 
+    // Q7: NxN 행렬에 대해 row와 col을 pivot.
+    public static int[][] q07(int[][] pix) {
+        int[][] rPix = new int[pix.length][pix[0].length];
+        for (int i=0; i<pix.length;i++) {
+            for (int j =0; j<pix.length; j++) {
+                //rPix[i][j] = pix[pix.length-1-j][i];
+                rPix[pix.length-1-j][i]=pix[i][j];
+            }
+        }
+
+        return rPix;
+    }
+    public static void printMat(int[][] pixels) {
+        for (int i=0;i<pixels.length;i++){
+            for (int j = 0; j < pixels[0].length;j++) {
+                System.out.print(pixels[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+    }
+    // Q8) 0이 포함된 row와 col은 모두 0으로 만들어라
+    // TODO: boolean의 초기값은 false이고 int의 초기값은 0인 것을 기억하자.
+    public static int[][] q08(int[][] mat) {
+        boolean[][] map = new boolean[mat.length][mat[0].length];
+        int[][] newMat = new int[mat.length][mat[0].length];
+        for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                if (mat[i][j]!=0){
+                    map[i][j] = true;
+                }
+            }
+        }
+
+        for (int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                newMat[i][j]=mat[i][j]*mult(mat, map, i, j);
+            }
+        }
+        return newMat;
+    }
+    public static int mult(int[][] mat, boolean[][] map, int r, int c) {
+        int mul=1;
+        for(int i=0;i<mat.length;i++){
+            mul*=bool2int(map[i][c]);
+        }
+        for(int j=0;j<mat[0].length;j++){
+            mul*=bool2int(map[r][j]);
+        }
+        return mul;
+    }
+
+    public static int bool2int(boolean bool) {
+        return bool?1:0;
+    }
 
 
     public static void main(String[] args) {
@@ -289,8 +369,25 @@ public class array_and_string {
 
         // Q6
         String str0601 = "aaabbcdddd";
-        System.out.println("Q6: " + q06(str0601));
+        String str0602 = "abcd";
+        System.out.println("Q6: " + q06_ver2(str0601) + ", " +
+        q06(str0602));
 
+        // Q7
+        int[][] pixels = {{1,2,3},{4,5,6},{7,8,9}};
+        int[][] rotatedPixels = q07(pixels);
+        System.out.println("Q7:");
+        printMat(pixels);
+        System.out.println("");
+        printMat(rotatedPixels);
+
+        // Q8
+        int[][] mat = {{0,1},{1,1},{1,1},{1,1}};
+        int[][] resultMat = q08(mat);
+        System.out.println("Q8:");
+        printMat(mat);
+        System.out.println();
+        printMat(resultMat);
 
     }
 }
