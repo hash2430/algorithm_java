@@ -222,6 +222,40 @@ public class array_and_string {
         return false;
     }
 
+    // Q6: 문자열 압축. 만약 압축된 문자열이 더 길다면 원본 문자열을 리턴하라.
+
+    // TODO: 내가 진짜 왠만하면 자바로 시험보려고 했는데 int와 char를 번갈아 표현하는 list를 만들기가 어렵다.
+    // Character.forDigit(int, radix)를 쓸 때 10 이하로만 반복된다고 가정하고 썼다.
+    // TODO: 10 이하의 숫자는 48을 더해서 char로 캐스팅하고 10 이상의 숫자는 48을 빼서 char로 캐스팅?
+    // Generic으로 변환하는 것은 필요없었는데 generic가면 int to char api가 있을까하여 불필요하게 전환
+    public static String q06(String str) {
+        char[] chars = str.toCharArray();
+        char c;
+        int cnt = 1;
+        ArrayList<Character> newChar = new ArrayList<>();
+        c = chars[0];
+        for (int i =1; i < str.length(); i++) {
+            if (chars[i] == c) {
+                cnt++;
+            } else {
+                newChar.add(c);
+                //newChar.add(new Character((char)(cnt+48)));
+                newChar.add(Character.forDigit(cnt, 10));
+                c = chars[i];
+                cnt = 1;
+            }
+        }
+        newChar.add(c);
+        newChar.add(new Character((char)(cnt+48)));
+        if (newChar.size() > str.length()) {
+            return str;
+        }
+        char[] newChars = new char[newChar.size()];
+        for (int i = 0; i < newChar.size(); i++)
+            newChars[i] = newChar.get(i).charValue();
+        return new String(newChars);
+    }
+
 
 
     public static void main(String[] args) {
@@ -252,6 +286,10 @@ public class array_and_string {
         System.out.println("Q5: " + q05(str0501, str0502) + ", "
                 + q05(str0501, str0503) + ", " + q05(str0501, str0504)
                 + ", " + q05(str0501, str0505));
+
+        // Q6
+        String str0601 = "aaabbcdddd";
+        System.out.println("Q6: " + q06(str0601));
 
 
     }
