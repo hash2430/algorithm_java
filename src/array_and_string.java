@@ -337,6 +337,32 @@ public class array_and_string {
         return bool?1:0;
     }
 
+    // Q9) String.contains()한번만 호출, String str1, str2 간의 회전관계 여부 파악.
+    // TODO: 겁먹은 것에 비해 훨씬 쉬웠고 종이에 자세히 풀이하고 코딩 시작한 것이 도움되었다.
+    public static boolean q09(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+        for (int i=0; i<str1.length();i++){
+            if (str1.charAt(0)==str2.charAt(0)&&str1.charAt(str1.length()-1)==str2.charAt(str1.length()-1)){
+                break;
+            } else{
+                str1 = moveLeft(str1);
+            }
+        }
+        return str1.contains(str2);
+    }
+
+    public static String moveLeft(String str){
+        char[] nChar = new char[str.length()];
+        for (int i = 1; i < str.length(); i++) {
+            nChar[i-1]=str.charAt(i);
+        }
+        nChar[str.length()-1]=str.charAt(0);
+        return new String(nChar);
+    }
+
+
 
     public static void main(String[] args) {
         //Q1
@@ -388,6 +414,15 @@ public class array_and_string {
         printMat(mat);
         System.out.println();
         printMat(resultMat);
+
+        // Q9
+        String str0901 = "waterbottle";
+        String str0902 = "bottlewater";
+        String str0903 = "aterbottlek";
+        boolean bool0902 = q09(str0901, str0902);
+        boolean bool0903 = q09(str0901, str0903);
+        System.out.println("Q9: " + bool0902 + ", "
+        + bool0903);
 
     }
 }
