@@ -23,6 +23,8 @@ public class bit_manipulation {
 
     // Q3) 주어진 정수의 비트 하나만을 0에서 1로 바꿀 수 있을 때 1이 연속으로 나올 수 있는 가장 긴 길이
     // TODO: 힘들게 짜놓고 regex 때문에 틀릴뻔했다. *는 0 or many, +는 1 or many
+    // TODO: String.replaceAll(a, b)과 String.replace(a, b)의 차이: 둘다 String의 모든 a를 b로 바꾼다.
+    // TODO: replaceAll의 경우 a에 regex를 받는 것이 차이이다. replace도 사실상 모두 찾아바꾸기.
     // TODO:10 패턴에 대한 처리가 안되어있다.
     public static int q03(int input) {
         String pattern01 = "01";
