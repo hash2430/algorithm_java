@@ -25,10 +25,9 @@ public class bit_manipulation {
     // TODO: 힘들게 짜놓고 regex 때문에 틀릴뻔했다. *는 0 or many, +는 1 or many
     // TODO: String.replaceAll(a, b)과 String.replace(a, b)의 차이: 둘다 String의 모든 a를 b로 바꾼다.
     // TODO: replaceAll의 경우 a에 regex를 받는 것이 차이이다. replace도 사실상 모두 찾아바꾸기.
-    // TODO:10 패턴에 대한 처리가 안되어있다.
-    public static int q03(int input) {
+    // 문제가 좋은데 내가 개끗하게 풀지 못한것 같아 아쉽다.
+    public static int q03(String bitArray) {
         String pattern01 = "01";
-        String bitArray = Integer.toBinaryString(input);
         int[] idxList = new int[bitArray.length()];
         int patternIdx = bitArray.indexOf(pattern01);
         int cnt;
@@ -52,11 +51,44 @@ public class bit_manipulation {
             idxCnt++;
         }
 
+        // pattern '10'에 대한 고려
+        String pattern10 = "10";
+        int[] idxList2 = new int[bitArray.length()];
+        int patternIdx2 = bitArray.indexOf(pattern10);
+        int idxCnt2=0;
+
+        idxList2[0] = patternIdx2;
+        idxCnt2++;
+        while(patternIdx2!=-1 && patternIdx2<bitArray.length()-1) {
+            patternIdx2 = bitArray.indexOf(pattern10, patternIdx2+1);
+            if (patternIdx2==-1) {
+                break;
+            }
+            idxList2[idxCnt2]=patternIdx2;
+            idxCnt2++;
+        }
+
         // TODO: String.replace()가 replaceAll을 호출하는 것 같다.
         for (int i = 0; i < idxCnt;i++) {
+            if (idxList[0]==-1){
+                break;
+            }
             int newCnt = 0;
             char[] newString = bitArray.toCharArray();
             newString[idxList[i]] = '1';
+            newCnt = countSequential1(new String(newString));
+            if (newCnt > cnt) {
+                cnt=newCnt;
+            }
+        }
+
+        for (int i=0; i< idxCnt2;i++) {
+            if (idxList2[0]==-1){
+                break;
+            }
+            int newCnt=0;
+            char[] newString = bitArray.toCharArray();
+            newString[idxList2[i]+1] = '1';
             newCnt = countSequential1(new String(newString));
             if (newCnt > cnt) {
                 cnt=newCnt;
@@ -84,6 +116,33 @@ public class bit_manipulation {
         }
         return cntArr[strArr.length-1];
     }
+
+    // Q04) return max and min number that can be made with equal number of '1' bit as the input integer
+    public static int[] q04(int in) {
+        // count the number of 1
+        int cnt = count1s(in);
+        // make the largest number with given 1s
+        int largest = makeLargest(int cnt);
+        // make the smallest number with given 1s
+
+    }
+
+    public static int count1s(int in){
+        String str = Integer.toBinaryString(in);
+        int cnt = 0;
+        for (int i = 0; i< str.length(); i++) {
+            if (str.charAt(i)=='1') {
+                cnt++;
+            }
+        }
+
+        return cnt;
+    }
+
+    public static int makeLargest(int cnt) {
+
+    }
+
     public static void main(String[] args){
         // Q1
         int M = 10;
@@ -100,9 +159,15 @@ public class bit_manipulation {
         System.out.println(q01Str);
 
         // Q3
-        int q3Int = 1775;
-        int q31s = q03(q3Int);
+        int q31s = q03("11110");
         System.out.println("Q3:" + q31s);
+
+        // Q4
+        int q0401 = 10;
+        int[] q0402 = q04(q0401);
+        System.out.print("Q04: "+q0402[0]);
+        System.out.println(q0402[1]);
+
     }
 
 
