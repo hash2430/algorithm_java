@@ -122,9 +122,10 @@ public class bit_manipulation {
         // count the number of 1
         int cnt = count1s(in);
         // make the largest number with given 1s
-        int largest = makeLargest(int cnt);
+        int largest = makeLargest(cnt);
         // make the smallest number with given 1s
-
+        int smallest = makeSmallest(cnt);
+        return new int[] {largest, smallest};
     }
 
     public static int count1s(int in){
@@ -140,7 +141,19 @@ public class bit_manipulation {
     }
 
     public static int makeLargest(int cnt) {
+        int num=0;
+        for(int i=1;i<cnt+1;i++){
+            num=num|(1<<(31-i));
+        }
+        return num;
+    }
 
+    public static int makeSmallest(int n) {
+        int num=0;
+        for(int i=1; i<n+1;i++){
+            num=num|(1<<(32-i));
+        }
+        return num;
     }
 
     public static void main(String[] args){
@@ -165,7 +178,10 @@ public class bit_manipulation {
         // Q4
         int q0401 = 10;
         int[] q0402 = q04(q0401);
-        System.out.print("Q04: "+q0402[0]);
+        System.out.println("Q04: "+Integer.toBinaryString(q0401));
+        System.out.println(Integer.toBinaryString(q0402[0]));
+        System.out.println(q0402[0]);
+        System.out.println(Integer.toBinaryString(q0402[1]));
         System.out.println(q0402[1]);
 
     }
