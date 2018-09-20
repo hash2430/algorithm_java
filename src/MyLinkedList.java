@@ -327,6 +327,7 @@ public class MyLinkedList<E> implements List<E> {
 			if (set.contains(node.data)){
 				prev.next = node.next;
 				node = prev.next;
+				prev = prev; // 적을 필요 없지만 가독성 위해서 적음
 				size--;
 			} else {
 				set.add((Integer)node.data);
