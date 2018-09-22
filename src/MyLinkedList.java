@@ -487,4 +487,48 @@ public class MyLinkedList<E> implements List<E> {
         }
         return l4;
     }
+
+    // Q6) 회문인지 검사하기
+    public boolean q6() {
+	    int size = size();
+	    boolean isOdd = (size%2)!=0;
+	    int rStart;
+	    if (isOdd) {
+	        rStart = (size+1)/2;
+        } else {
+	        rStart = size/2;
+        }
+
+        // lP는 왼쪽 포인터의 끝을 가리킨다.
+        int lStart = (isOdd)?rStart-2:rStart-1;
+	    Node<Integer> lP = head;
+//        Node<Integer> lInit = lP;
+//        for (int i =0; i < lStart; i++) {
+//	        lInit = lP.next;
+//        }
+
+        // rP는 오른쪽 포인터의 시작을 가리킨다.
+        Node<Integer> rP = head;
+        for (int i = 0; i < rStart-1; i++) {
+            rP = rP.next;
+        }
+
+        // lP는 왼쪽으로, rP는 오른쪽으로 이동하며 비교한다.
+        int timestep = (isOdd)?((size-1)/2):(size/2);
+        for (int i = 0; i < timestep; i++) {
+            //lP는 포인터는 왼쪽으로 이동
+            for (int j = 0; j < timestep-i-1; j++) {
+                lP = lP.next;
+            }
+            //rP는 오른쪽으로 이동
+            rP = rP.next;
+            //lP.data와 rP.data를 비교
+            if (lP.data != rP.data) {
+                return false;
+            }
+            // lP 초기화
+            lP = head;
+        }
+        return true;
+    }
 }

@@ -73,5 +73,25 @@ public class linked_list {
         MyLinkedList<Integer> l3_2 = MyLinkedList.q5_2(l1, l2);
         System.out.println("Q5_2:");
         l3_2.print();
+
+        // Q6) 회문인지 검사하기
+        MyLinkedList<Integer> l6 = new MyLinkedList<>();
+        l6.add(1);
+        l6.add(3);
+        l6.add(5);
+        l6.add(3);
+        l6.add(1);
+
+        boolean l6_ = l6.q6();
+        System.out.println("Q6: " + l6_);
+
+        MyLinkedList<Integer> l6_1 = new MyLinkedList<>();
+        l6_1.add(1);
+        l6_1.add(3);
+        l6_1.add(3);
+        l6_1.add(1);
+
+        l6_ = l6_1.q6();
+        System.out.println("Q6: " + l6_);
     }
 }
