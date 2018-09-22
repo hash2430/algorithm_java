@@ -114,5 +114,21 @@ public class linked_list {
         Node<Integer> l7_return2 = l7_1.q7(l7_3);
         System.out.println(l7_return2.data);
 
+        // Q8) 순환 연결리스트가 시작되는 노드 반환
+        MyLinkedList<Character> l8 = new MyLinkedList<>();
+        l8.add('A');
+        l8.add('B');
+        l8.add('C');
+        l8.add('D');
+        l8.add('E');
+        Node<Character> sNode = l8.getNode(2);
+        Node<Character> eNode = l8.getNode(4);
+        eNode.next = sNode;
+
+        Node<Character> answerNode = l8.q8();
+        System.out.println("Q8: ");
+        System.out.println("Correct answer: " + sNode.toString());
+        System.out.println("My      answer: " + answerNode.toString());
+
     }
 }

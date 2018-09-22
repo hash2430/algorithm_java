@@ -561,4 +561,18 @@ public class MyLinkedList<E> implements List<E> {
         }
         return new Node<E>();
     }
+    // Q8) TODO: 이거는 자료구조 자체를 새로 정의해야될 것 같아.. 하지만 그건 출제자의 몫 아닌가? 내 몫은 훌륭하게 해낸거 같은데
+    public Node<E> q8() {
+	    HashSet<Node<E>> set = new HashSet<>();
+	    Node<E> p = head;
+	    for (int i =1; i < size; i++) {
+	        if (set.contains(p.next)) {
+	            return p.next;
+            } else {
+	            set.add(p.next);
+            }
+            p = p.next;
+        }
+        return new Node<E>();
+    }
 }
