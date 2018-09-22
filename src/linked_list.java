@@ -1,5 +1,5 @@
 import static jdk.nashorn.internal.objects.Global.print;
-
+// TODO: 만약 linked list 문제가 나온다면 add와 size는 구현을 해두어야 문제를 풀 때 편하다.
 public class linked_list {
     // Q1. 정렬 안된 연결리스트에서 중복 원소를 제거하는 코드
 
@@ -59,8 +59,6 @@ public class linked_list {
         l1.add(7);
         l1.add(1);
         l1.add(6);
-        l1.add(1);
-        l1.add(2);
 
         l2.add(5);
         l2.add(9);
@@ -69,5 +67,9 @@ public class linked_list {
         MyLinkedList<Integer> l3 = MyLinkedList.q5(l1, l2);
         System.out.println("Q5: ");
         l3.print();
+
+        MyLinkedList<Integer> l3_2 = MyLinkedList.q5_2(l1, l2);
+        System.out.println("Q5_2:");
+        l3_2.print();
     }
 }

@@ -398,7 +398,7 @@ public class MyLinkedList<E> implements List<E> {
 	            sum += 1;
             }
             p1 = p1.next;
-	        if (sum>10){
+	        if (sum>=10){
 	            flag = true;
 	            sum -= 10;
             } else {
@@ -406,6 +406,62 @@ public class MyLinkedList<E> implements List<E> {
             }
             l3.add(sum);
         }
+        if (flag) {
+            l3.add(1);
+        }
         return l3;
+    }
+
+    // todo: 역순으로 linked list에 접근하려면 이중 루프가 필요하다
+    public static MyLinkedList<Integer> q5_2(MyLinkedList<Integer>l1, MyLinkedList<Integer>l2) {
+	    boolean flag = false;
+	    MyLinkedList<Integer> l3 = new MyLinkedList<>();
+	    Node<Integer> p1;
+	    Node<Integer> p2;
+	    int sum;
+	    if(l1.size > l2.size) {
+	        p1 = l1.head;
+	        p2 = l2.head;
+        } else {
+	        p1 = l2.head;
+	        p2 = l1.head;
+        }
+
+        for (int i =0; i < l1.size; i++) {
+	        for (int j = 0; j < l1.size-i-1; j++) {
+	            p1 = p1.next;
+	            p2 = p2.next;
+            }
+            sum = p1.data + p2.data;
+	        if (flag) {
+	            sum++;
+            }
+            if (sum >= 10) {
+	            flag = true;
+	            sum-=10;
+            } else{
+	            flag = false;
+            }
+            // l3에 넣는다.
+            l3.add(sum);
+	        p1 = l1.head;
+	        p2 = l2.head;
+        }
+
+        if (flag) {
+	        l3.add(1);
+        }
+
+        //l3을 반전시킨다.
+        Node<Integer> p3 = l3.head;
+	    MyLinkedList<Integer> l4 = new MyLinkedList<>();
+        for(int i = 0; i < l3.size; i++) {
+	        for(int j=0; j<l3.size-i-1;j++) {
+	            p3=p3.next;
+            }
+            l4.add(p3.data);
+	        p3 = l3.head;
+        }
+        return l4;
     }
 }
