@@ -1,3 +1,5 @@
+import static jdk.nashorn.internal.objects.Global.print;
+
 public class linked_list {
     // Q1. 정렬 안된 연결리스트에서 중복 원소를 제거하는 코드
 
@@ -14,8 +16,41 @@ public class linked_list {
         list.add(new Integer(1));
         list.add(new Integer(3));
         list.add(new Integer(1));
-        list.q3();
+        list.q1();
         list.print();
         // Q2
+        // 뒤에서 k번째 원소 구하기
+        int q2_int = 3;
+        MyLinkedList<Integer> list2 = new MyLinkedList<>();
+        list2.add(5);
+        list2.add(1);
+        list2.add(7);
+        list2.add(10);
+        int q2_return = list2.q2(q2_int);
+        System.out.println("Q2: " + q2_return);
+
+        // Q3: 연결리스트에서 중간 노드 삭제하기. 단 중간노드만 접근가능
+        MyLinkedList<Integer> list3 = new MyLinkedList<>();
+        list3.add(1);
+        list3.add(2);
+        list3.add(3);
+        list3.add(4);
+        Node<Integer> node = list3.getNode(2);
+        list3.q3(node);
+        System.out.println("Q3:");
+        list3.print();
+
+        //Q4: x를 기준으로 그보다 작은값과 같거나 큰값으로 분할된 연결리스트
+        MyLinkedList<Integer> list4 = new MyLinkedList<>();
+        list4.add(3);
+        list4.add(5);
+        list4.add(8);
+        list4.add(5);
+        list4.add(10);
+        list4.add(2);
+        list4.add(1);
+        list4 = list4.q4(5);
+        System.out.println("Q4: ");
+        list4.print();
     }
 }

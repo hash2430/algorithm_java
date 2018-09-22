@@ -10,31 +10,6 @@ import java.util.*;
  *
  */
 public class MyLinkedList<E> implements List<E> {
-
-	/**
-	 * Node is identical to ListNode from the example, but parameterized with T
-	 *
-	 * @author downey
-	 *
-	 */
-	private class Node {
-		public E data;
-		public Node next;
-
-		public Node(E data) {
-			this.data = data;
-			this.next = null;
-		}
-		@SuppressWarnings("unused")
-		public Node(E data, Node next) {
-			this.data = data;
-			this.next = next;
-		}
-		public String toString() {
-			return "Node(" + data.toString() + ")";
-		}
-	}
-
 	private int size;            // keeps track of the number of elements
 	private Node head;           // reference to the first node
 
@@ -135,14 +110,14 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E get(int index) {
 		Node node = getNode(index);
-		return node.data;
+		return (E) node.data;
 	}
 
 	/** Returns the node at the given index.
 	 * @param index
 	 * @return
 	 */
-	private Node getNode(int index) {
+	public Node getNode(int index) {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -242,14 +217,14 @@ public class MyLinkedList<E> implements List<E> {
         E returnVal;
 
         if (index == 0) {
-            returnVal = node.data;
+            returnVal = (E) node.data;
             head = node.next;
         }
         else {
             for (int i = 0; i < index - 1; i++) {
                 node = node.next;
             }
-            returnVal = node.next.data;
+            returnVal = (E) node.next.data;
             node.next = node.next.next;
         }
         size--;
@@ -273,7 +248,7 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public E set(int index, E element) {
 		Node node = getNode(index);
-		E old = node.data;
+		E old = (E)node.data;
 		node.data = element;
 		return old;
 	}
@@ -293,7 +268,7 @@ public class MyLinkedList<E> implements List<E> {
 		MyLinkedList<E> list = new MyLinkedList<E>();
 		for (Node node=head; node != null; node = node.next) {
 			if (i >= fromIndex && i <= toIndex) {
-				list.add(node.data);
+				list.add((E)node.data);
 			}
 			i++;
 		}
@@ -316,7 +291,7 @@ public class MyLinkedList<E> implements List<E> {
 	public <T> T[] toArray(T[] a) {
 		throw new UnsupportedOperationException();
 	}
-	public void q3() {
+	public void q1() {
 		HashSet<Integer> set = new HashSet<>();
 		Node node = head;
 		Node prev = null;
@@ -344,4 +319,45 @@ public class MyLinkedList<E> implements List<E> {
 			node = node.next;
 		}
 	}
+
+	// Q2) 뒤에서 k번째 원소 리턴
+    public E q2(int k) {
+	    if (k > size - 1) {
+	        throw new IndexOutOfBoundsException();
+        }
+	    int n = size - k - 1;
+	    Node node = head;
+	    for (int i = 0; i < n; i++) {
+	        node = node.next;
+        }
+        return (E)node.data;
+    }
+    // Q3) 중간 노드 삭제. 해당 노드만 접근가능
+    public void q3(Node<E> node) {
+	    Node<E> nextNode = node.next;
+	    node.data = nextNode.data;
+	    node.next = nextNode.next;
+	    size--;
+    }
+
+    // Q4) x값을 기준으로 더 작은 그룹과 크거나 같은 그룹으로 분할된 연결 리스트
+    public MyLinkedList<E> q4(int x){
+	    MyLinkedList<E> newList1 = new MyLinkedList<>();
+	    MyLinkedList<E> newList2 = new MyLinkedList<>();
+	    Node<E> node = head;
+	    for (int i =0; i < size; i++) {
+	        if ((Integer) node.data < new Integer(x)){
+	            newList1.add(node.data);
+            } else {
+	            newList2.add(node.data);
+            }
+            node = node.next;
+        }
+
+        for (int i = 0; i < newList2.size; i++) {
+	        newList1.add(newList2.get(i));
+        }
+	    return newList1;
+    }
+
 }
