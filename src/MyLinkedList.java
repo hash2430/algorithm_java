@@ -21,6 +21,16 @@ public class MyLinkedList<E> implements List<E> {
 		size = 0;
 	}
 
+	public MyLinkedList(Node n) {
+	    head = n;
+	    size = 1;
+	    Node cntNode = n;
+	    while (cntNode.next != null) {
+	        cntNode = cntNode.next;
+	        size++;
+        }
+    }
+
 	/**
 	 * @param args
 	 */
@@ -530,5 +540,25 @@ public class MyLinkedList<E> implements List<E> {
             lP = head;
         }
         return true;
+    }
+
+    // Q7) 교집합 노드 리턴. 단 l1이 더 길다고 가정하겠다.
+    // Node.toString()이 오버라이드 되어있지 않고 주소값을 리턴해야 한다.
+    public  Node<E> q7(MyLinkedList<E> l2){
+	    Node<E> h1 = head;
+	    Node<E> h2 = l2.head;
+	    Node<E> p=h1;
+	    String pStr;
+	    String h2Str;
+
+	    for (int i = 1; i < size; i++) {
+	        pStr = p.toString();
+	        h2Str = h2.toString();
+	        if (pStr.compareTo(h2Str) == 0) {
+	            return p;
+            }
+	        p = p.next;
+        }
+        return new Node<E>();
     }
 }

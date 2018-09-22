@@ -8,6 +8,11 @@ public class Node<E> {
     public E data;
     public Node next;
 
+    public Node() {
+        this.data = null;
+        this.next = null;
+    }
+
     public Node(E data) {
         this.data = data;
         this.next = null;
@@ -17,7 +22,7 @@ public class Node<E> {
         this.data = data;
         this.next = next;
     }
-    public String toString() {
-        return "Node(" + data.toString() + ")";
-    }
+//    public String toString() {
+//        return "Node(" + data.toString() + ")";
+//    }
 }

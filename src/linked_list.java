@@ -93,5 +93,26 @@ public class linked_list {
 
         l6_ = l6_1.q6();
         System.out.println("Q6: " + l6_);
+
+        // Q7) 교집합 노드 반환
+        MyLinkedList<Integer> l7_1 = new MyLinkedList<>();
+        l7_1.add(1);
+        l7_1.add(2);
+        l7_1.add(3);
+        l7_1.add(4);
+        l7_1.add(5);
+
+        Node<Integer> subsetStartingNode = l7_1.getNode(2);
+        MyLinkedList<Integer> l7_2 = new MyLinkedList<>(subsetStartingNode);
+        Node<Integer> l7_return = l7_1.q7(l7_2);
+        System.out.println(l7_return.data);
+
+        MyLinkedList<Integer> l7_3 = new MyLinkedList<>();
+        l7_3.add(3);
+        l7_3.add(4);
+        l7_3.add(5);
+        Node<Integer> l7_return2 = l7_1.q7(l7_3);
+        System.out.println(l7_return2.data);
+
     }
 }
