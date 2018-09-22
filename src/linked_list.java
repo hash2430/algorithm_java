@@ -52,5 +52,22 @@ public class linked_list {
         list4 = list4.q4(5);
         System.out.println("Q4: ");
         list4.print();
+        // Q5) 연결리스트로 각 자리수가 역순으로 표현된 정수의 합
+        MyLinkedList<Integer> l1 = new MyLinkedList<>();
+        MyLinkedList<Integer> l2 = new MyLinkedList<>();
+
+        l1.add(7);
+        l1.add(1);
+        l1.add(6);
+        l1.add(1);
+        l1.add(2);
+
+        l2.add(5);
+        l2.add(9);
+        l2.add(2);
+
+        MyLinkedList<Integer> l3 = MyLinkedList.q5(l1, l2);
+        System.out.println("Q5: ");
+        l3.print();
     }
 }

@@ -360,4 +360,52 @@ public class MyLinkedList<E> implements List<E> {
 	    return newList1;
     }
 
+    // Q5) 두개의 linked list 의 각 node의 값을 역순으로 정수로 표현한 것의 합
+    // 두 리스트가 자리수가 같은 경우에 대해 푼 다음에 자리수가 다른 경우에 대해 확장한 것이 굉장히 divice-and-conquer 적인 접근이었다고 생각함.
+    public static MyLinkedList<Integer> q5(MyLinkedList<Integer> l1, MyLinkedList<Integer> l2) {
+	    MyLinkedList<Integer> l3 = new MyLinkedList<>();
+	    boolean flag = false;
+	    Node<Integer> p1;
+	    Node<Integer> p2;
+        if (l1.size > l2.size) {
+            p1 = l1.head;
+            p2 = l2.head;
+        } else {
+            p1 = l2.head;
+            p2 = l1.head;
+        }
+	    Node<Integer> p3 = l3.head;
+	    int sum = -1;
+	    while (p1 != null && p2 != null) {
+	        sum = p1.data + p2.data;
+	        if (flag) {
+	            sum += 1;
+            }
+	        p1 = p1.next;
+	        p2 = p2.next;
+	        if (sum > 10) {
+	            flag = true;
+	            sum -= 10;
+            } else {
+	            flag = false;
+            }
+            // put to l3
+            l3.add(sum);
+        }
+        while (p1!=null && p2 == null) {
+	        sum = p1.data;
+	        if(flag){
+	            sum += 1;
+            }
+            p1 = p1.next;
+	        if (sum>10){
+	            flag = true;
+	            sum -= 10;
+            } else {
+	            flag = false;
+            }
+            l3.add(sum);
+        }
+        return l3;
+    }
 }
