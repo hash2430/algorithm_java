@@ -413,12 +413,14 @@ public class MyLinkedList<E> implements List<E> {
     }
 
     // todo: 역순으로 linked list에 접근하려면 이중 루프가 필요하다
+    // 역순으로 linked list에 접근할 때 한 턴이 끝나면 노드 포인터를 맨 앞으로 돌리는 것을 잊지 말아야한다.
     public static MyLinkedList<Integer> q5_2(MyLinkedList<Integer>l1, MyLinkedList<Integer>l2) {
 	    boolean flag = false;
 	    MyLinkedList<Integer> l3 = new MyLinkedList<>();
 	    Node<Integer> p1;
 	    Node<Integer> p2;
 	    int sum;
+	    int lengthDiff = l1.size - l2.size;
 	    if(l1.size > l2.size) {
 	        p1 = l1.head;
 	        p2 = l2.head;
@@ -426,9 +428,12 @@ public class MyLinkedList<E> implements List<E> {
 	        p1 = l2.head;
 	        p2 = l1.head;
         }
-
-        for (int i =0; i < l1.size; i++) {
-	        for (int j = 0; j < l1.size-i-1; j++) {
+        for(int i = 0; i < l1.size - l2.size; i++) {
+	        p1 = p1.next;
+        }
+        Node<Integer> p1Start = p1;
+        for (int i =0; i < l2.size; i++) {
+	        for (int j = 0; j < l2.size-i-1; j++) {
 	            p1 = p1.next;
 	            p2 = p2.next;
             }
@@ -444,10 +449,28 @@ public class MyLinkedList<E> implements List<E> {
             }
             // l3에 넣는다.
             l3.add(sum);
-	        p1 = l1.head;
+	        p1 = p1Start;
 	        p2 = l2.head;
         }
-
+        // l1의 남은 길이에 대한 연산
+        p1 = l1.head;
+        for (int i = 0; i < lengthDiff; i++) {
+            for (int j = 0; j < lengthDiff - i - 1; j++) {
+                p1 = p1.next;
+            }
+            sum = p1.data;
+            if (flag) {
+                sum++;
+            }
+            if (sum >= 10) {
+                sum-=10;
+                flag = true;
+            } else {
+                flag = false;
+            }
+            l3.add(sum);
+            p1 = l1.head;
+        }
         if (flag) {
 	        l3.add(1);
         }

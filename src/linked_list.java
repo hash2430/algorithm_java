@@ -59,6 +59,8 @@ public class linked_list {
         l1.add(7);
         l1.add(1);
         l1.add(6);
+        l1.add(1);
+        l1.add(2);
 
         l2.add(5);
         l2.add(9);
