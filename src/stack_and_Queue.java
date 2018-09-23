@@ -17,9 +17,23 @@ public class stack_and_Queue {
         listOfStack.push(6);
         listOfStack.push(7);
 
+        System.out.println("Q3:");
         for (int i =0; i < 7; i++) {
             System.out.println(listOfStack.pop());
         }
+
+        // Q4) 스택 2개로 큐 구현
+        QueueOfStack queueOfStack = new QueueOfStack();
+        queueOfStack.push(1);
+        queueOfStack.push(2);
+        queueOfStack.push(3);
+
+        System.out.println("Q4:");
+        int size = queueOfStack.size;
+        for (int i = 0; i < size; i++) {
+            System.out.println(queueOfStack.pop());
+        }
+
 
     }
 
