@@ -49,6 +49,28 @@ public class tree_and_graph {
         }
         return ret;
     }
+
+    public static BinaryTreeNode q2(BinaryTreeNode n1, int[] arr) {
+        if (arr.length == 1) {
+            BinaryTreeNode n = new BinaryTreeNode(arr[0]);
+            return n;
+        }
+
+
+        int medIdx = (arr.length%2==0)?arr.length/2:(arr.length-1)/2;
+        n1 = new BinaryTreeNode(arr[medIdx]);
+        int[] left = new int[medIdx];
+        for (int i =0; i < left.length; i++) {
+            left[i] = arr[i];
+        }
+
+        int[] right = new int[arr.length-medIdx-1];
+        for (int i =0; i < right.length; i++) {
+            right[i] = arr[medIdx + i+1];
+        }
+            q2(n1.l, left);
+            q2(n1.r, right);
+    }
     public static void main(String[] args) {
         // Q1) 방향 그래프의 두 노드에 대해 연결 여부를 리턴
         Graph g1 = new Graph();
@@ -68,5 +90,11 @@ public class tree_and_graph {
 
         boolean q1 = q1(gn3, gn5);
         System.out.println(q1);
+
+        // Q2) 오름차순 정렬된 배열. 중복 없는 정수 원소들. 최소 높이의 이진탐색트리를 만들어라
+        int[] arr = new int[]{1,2,3,4,5,6,7};
+        BinaryTreeNode n1 = new BinaryTreeNode();
+        q2(n1, arr);
+        System.out.println("");
     }
 }
