@@ -1,3 +1,7 @@
+import sun.awt.image.ImageWatched;
+
+import java.util.LinkedList;
+
 public class tree_and_graph {
     // 트리 탐색 알고리즘을 그래프에 확장
     public static boolean q1(GraphNode a, GraphNode b) {
@@ -78,6 +82,37 @@ public class tree_and_graph {
             q2(n1.r, right);
         }
     }
+
+    // Q3
+    public static LinkedList<LinkedList<BinaryTreeNode>> q3(BinaryTree t) {
+        LinkedList<LinkedList<BinaryTreeNode>> myList = new LinkedList<>();
+        LinkedList<BinaryTreeNode> firstDepthList = new LinkedList<>();
+        firstDepthList.add(t.root);
+        myList.add(firstDepthList);
+        while (true) {
+            LinkedList<BinaryTreeNode> currentDepthList = getLinkedList(myList.getLast());
+            if (currentDepthList.size() == 0) break;
+            myList.add(currentDepthList);
+        }
+
+        return myList;
+    }
+
+    public static LinkedList<BinaryTreeNode> getLinkedList(LinkedList<BinaryTreeNode> upperDepthList) {
+        LinkedList<BinaryTreeNode> currentDepthList = new LinkedList<>();
+        int length = upperDepthList.size();
+        BinaryTreeNode n;
+        for (int i =0; i < length; i++) {
+            n = upperDepthList.get(i);
+            if (n.l != null){
+                currentDepthList.add(n.l);
+            }
+            if (n.r != null) {
+                currentDepthList.add(n.r);
+            }
+        }
+        return currentDepthList;
+    }
     public static void main(String[] args) {
         // Q1) 방향 그래프의 두 노드에 대해 연결 여부를 리턴
         Graph g1 = new Graph();
@@ -103,5 +138,20 @@ public class tree_and_graph {
         BinaryTreeNode n1 = new BinaryTreeNode();
         q2(n1, arr);
         System.out.println("");
+
+        // Q3) 이진트리로부터 depth 별 linked list 만들기
+        BinaryTreeNode n2 = new BinaryTreeNode(1);
+        n2.l = new BinaryTreeNode(2);
+        n2.r = new BinaryTreeNode(3);
+        n2.l.l = new BinaryTreeNode(4);
+        n2.l.r = new BinaryTreeNode(5);
+        n2.r.l = new BinaryTreeNode(6);
+        n2.r.r = new BinaryTreeNode(7);
+        n2.l.l.l = new BinaryTreeNode(8);
+        n2.l.l.r = new BinaryTreeNode(9);
+        n2.l.r.l = new BinaryTreeNode(10);
+        n2.r.r.l = new BinaryTreeNode(11);
+        BinaryTree t2 = new BinaryTree(n2);
+        LinkedList<LinkedList<BinaryTreeNode>> depths = q3(t2);
     }
 }
