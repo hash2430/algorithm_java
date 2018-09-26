@@ -62,6 +62,37 @@ public class recursion_and_dynamic_programming {
         }
         return subset;
     }
+    // String.charAt과 binaryString은 order가 반대인 것에 유의
+    public static int q5(int a, int b) {
+        int aIsPowerOf2 = a&(a-1);
+        int bIsPowerOf2 = b&(b-1);
+        int n = -1;
+        if (aIsPowerOf2 == 0) {
+            String strA = Integer.toBinaryString(a);
+            for (int i = 0; i < strA.length() ; i--) {
+                if (strA.charAt(i) == '1') {
+                    n = strA.length() - 1 - i;
+                    break;
+                }
+            }
+           return b << n;
+        } else if (bIsPowerOf2 == 0) {
+            String strB = Integer.toBinaryString(b);
+            for (int i =0; i <strB.length(); i++) {
+                if (strB.charAt(i) == '1') {
+                    n = strB.length() -1 -i;
+                    break;
+                }
+            }
+            return a << n;
+        } else {
+            for (int i = 1; i < b; i++) {
+                a += a;
+            }
+        }
+        return a;
+    }
+
     public static void main(String[] args) {
         // Q1) n = 3a + 2b + c일 때 (a, b, c)의 경우의 수
         int q1 = q1(10);
@@ -75,5 +106,9 @@ public class recursion_and_dynamic_programming {
         set.add(2);
         set.add(5);
         HashSet<HashSet<Integer>> subsets = q4(set);
+
+        // Q5: * 연산자를 쓰지 않고 곱하기
+        int q5 = q5(5,4);
+        System.out.println(q5);
     }
 }
