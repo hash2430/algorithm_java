@@ -39,7 +39,7 @@ public class recursion_and_dynamic_programming {
 //    }
     // Integer.toBinaryString()으로 하지 않고 boolean array로 해야 되는 이유는 전자가 리턴하는 바이너리의 자리 수는 최소화되기 때문에 이를
     // set.size 길이로 바꾸는 게 귀찮음. 귀찮은 것보다는 까먹을까봐 걱정.
-    // binary의 길이가 고정되야하는 문제인 경우에는 boolean array가 나은듯..
+    // 자바, 파이썬에서 ^는 power의 operator가 아님. Math.pow() 사용
     public static HashSet<HashSet<Integer>> q4(HashSet<Integer> set) {
         int size = set.size();
         HashSet<HashSet<Integer>> subset = new HashSet<>();
