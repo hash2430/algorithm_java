@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -93,6 +94,42 @@ public class recursion_and_dynamic_programming {
         return a;
     }
 
+    public static ArrayList<String> q7(String str) {
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> sublist=new ArrayList<>();;
+        ArrayList<Character> set = new ArrayList<>();
+        if (str.length() == 2) {
+            list.add(str);
+            char[] charArr = new char[]{str.charAt(0), str.charAt(1)};
+            list.add(new String(charArr));
+            return list;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            set = new ArrayList<>();
+            for (int j = 0; j < str.length(); j++) {
+                set.add(str.charAt(j));
+            }
+            set.remove(i);
+            Object[] arr = set.toArray();
+            char[] newChar = new char[arr.length];
+            for (int j = 0; j < arr.length; j++) {
+                newChar[j] = (char)arr[j];
+            }
+            String newStr = new String(newChar);
+            sublist = q7(newStr);
+            String prefix = new String(new char[]{c});
+            for (int j = 0; j < sublist.size(); j++) {
+                sublist.set(j,prefix+sublist.get(j));
+            }
+        }
+        for (int i = 0; i < sublist.size(); i++) {
+            list.add(sublist.get(i));
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         // Q1) n = 3a + 2b + c일 때 (a, b, c)의 경우의 수
         int q1 = q1(10);
@@ -110,5 +147,9 @@ public class recursion_and_dynamic_programming {
         // Q5: * 연산자를 쓰지 않고 곱하기
         int q5 = q5(5,4);
         System.out.println(q5);
+
+        // Q7: 중복없는 순열
+        String str = "ABCD";
+        ArrayList<String> list = q7(str);
     }
 }
