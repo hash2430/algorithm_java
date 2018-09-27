@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class recursion_and_dynamic_programming {
     // 진짜 이쁘다...
@@ -129,8 +128,64 @@ public class recursion_and_dynamic_programming {
         }
         return list;
     }
+    // 하향식 재귀 풀이
+    public static int fibonacci1(int a) {
+        if (a == 0) return 0;
+        if (a == 1) return 1;
+        return fibonacci1(a - 1) + fibonacci1(a - 2);
+    }
+    // 하향식 메모이제이션 풀이
+    public static int fibonacci2(int a) {
+        int[] arr = new int[a + 1];
+        return fibonacci2_(a, arr);
+    }
 
+    public static int fibonacci2_(int a, int[] arr) {
+        if (a == 0 || a == 1) return a;
+        if (arr[a] == 0) {
+            arr[a] = fibonacci2_(a - 1, arr) + fibonacci2_(a - 2, arr);
+        } else {
+            return arr[a];
+        }
+        return arr[a];
+    }
+
+    // 상향식 iterative 동적 프로그래밍 with cache
+    public static int fibonacci3(int a) {
+        if (a == 0 || a == 1) {
+            return a;
+        }
+        int[] arr = new int[a + 1];
+        arr[0] = 0;
+        arr[1] = 1;
+        for (int i = 2; i <= a; i++) {
+            arr[i] = arr[i-1] + arr[i-2];
+        }
+        return arr[a];
+    }
+
+    // 상향식 iterative 동적 프로그래밍 without cache
+    public static int fibonacci4(int a) {
+        if (a == 0 || a == 1) {
+            return a;
+        }
+        int x = 0;
+        int y = 1;
+        int z = 0;
+        for (int i = 0; i < a - 1; i++) {
+            z = y + x;
+            x = y;
+            y = z;
+        }
+        return z;
+    }
     public static void main(String[] args) {
+        // fibonacci
+        System.out.println("fibonacci:");
+        System.out.println(fibonacci1(5));
+        System.out.println(fibonacci2(5));
+        System.out.println(fibonacci3(5));
+        System.out.println(fibonacci4(5));
         // Q1) n = 3a + 2b + c일 때 (a, b, c)의 경우의 수
         int q1 = q1(10);
         System.out.println("Q1: " + q1);
