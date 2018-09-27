@@ -135,6 +135,7 @@ public class recursion_and_dynamic_programming {
         return fibonacci1(a - 1) + fibonacci1(a - 2);
     }
     // 하향식 메모이제이션 풀이
+    // 재귀적으로 문제를 풀 동안 필요한 메모리가 initialization time에 할당됨
     public static int fibonacci2(int a) {
         int[] arr = new int[a + 1];
         return fibonacci2_(a, arr);
