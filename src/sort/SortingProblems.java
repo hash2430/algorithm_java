@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.ArrayList;
+
 public class SortingProblems {
     /*
      * Q1) 정렬된 배열 A, B
@@ -188,6 +190,43 @@ public class SortingProblems {
         return  new int[] {-1, -1};
     }
 
+    public static void q11(int[] arr) {
+        // sort arr
+        sort(arr);
+        ArrayList<Integer> left = new ArrayList<>();
+        ArrayList<Integer> right = new ArrayList<>();
+        int mid = arr.length / 2;
+        for (int i = 0; i < mid; i++) {
+            left.add(arr[i]);
+        }
+        for (int i = 0; i < arr.length - left.size(); i++) {
+            right.add(arr[left.size() + i]);
+        }
+        int rightP = right.size() - 1;
+        int turn = 0;
+        while(left.size() > 0) {
+            arr[2 * turn] = right.remove(rightP);
+            arr[2 * turn + 1] = left.remove(0);
+            rightP--;
+            turn++;
+        }
+        if (right.size() != 0) {
+            arr[2 * turn] = right.remove(0);
+        }
+    }
+
+    public static void sort(int[] arr) {
+        for (int i =0; i < arr.length; i++) {
+            for (int j =1; j < arr.length - i; j++) {
+                if (arr[j-1] > arr[j]) {
+                    int tmp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = tmp;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // Q1
         int[] arr1 = q1(new int[] {1,5,7,10,11,12,13}, new int[] {2,4,6});
@@ -215,5 +254,13 @@ public class SortingProblems {
         int[] q9 = q9(arr9, 6);
         print(q9);
 
+        // Q11
+        int[] arr11 = new int[] {5, 6, 7, 8, 1, 2, 3};
+        q11(arr11);
+        System.out.println("Q11: ");
+        for (int i = 0;i < arr11.length; i++) {
+            System.out.print(" " + arr11[i]);
+        }
+        System.out.println();
     }
 }
